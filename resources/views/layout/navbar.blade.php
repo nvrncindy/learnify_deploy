@@ -13,6 +13,19 @@
 
         <div class="d-flex align-items-center" style="gap: 12px; margin-left: auto;">
 
+            <div class="d-flex gap-1">
+                <a href="{{ route('lang.switch', 'en') }}"
+                   class="btn btn-sm rounded-pill fw-bold {{ app()->getLocale() == 'en' ? 'btn-primary' : 'btn-outline-secondary' }}"
+                   style="width: 40px; padding-left: 0; padding-right: 0; text-align: center;">
+                   EN
+                </a>
+                <a href="{{ route('lang.switch', 'id') }}"
+                   class="btn btn-sm rounded-pill fw-bold {{ app()->getLocale() == 'id' ? 'btn-primary' : 'btn-outline-secondary' }}"
+                   style="width: 40px; padding-left: 0; padding-right: 0; text-align: center;">
+                   ID
+                </a>
+            </div>
+
             <select class="form-select rounded-pill px-3" style="width: 150px;">
                 <option>Filter</option>
                 <option>Low to High</option>
@@ -25,7 +38,6 @@
                 style="width: 250px;">
             <button class="btn  rounded-pill px-4 fw-bold"> Search</button>
             </form>
-            <!-- Login -->
             @guest
                 <a href="/login" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
                     Login
@@ -37,7 +49,6 @@
                     {{ Auth::user()->name }}
                 </a>
             @endauth
-
 
         </div>
 
