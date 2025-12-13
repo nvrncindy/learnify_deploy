@@ -40,4 +40,11 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         ->name('admin.courses.store');
 });
 
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) { // 'id' is standard for Indonesian
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 
