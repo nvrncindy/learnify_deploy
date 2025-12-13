@@ -18,6 +18,22 @@ class CourseController extends Controller
                   ->orWhere('description', 'LIKE', "%{$search}%");
         }
 
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                default:
+                    $query->latest();
+                    break;
+            }
+        } else {
+            $query->latest();
+        }
+
         $courses = $query->get();
 
         return view('coursecatalog', compact('courses', 'search'));
@@ -89,4 +105,12 @@ class CourseController extends Controller
 
         return back()->with('success', 'You have successfully applied for this course.');
     }
+
+    public function submit(Request $request, $id)
+{
+
+    return redirect('/')->with('success', 'Course submitted successfully!');
+}
+
+
 }
