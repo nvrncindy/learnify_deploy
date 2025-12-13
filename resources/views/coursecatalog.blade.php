@@ -8,7 +8,7 @@
 <body class="bg-white text-gray-700 antialiased">
 
 <div class="min-h-screen p-6">
-
+    @admin
     <header class="bg-gray-200 rounded-b px-6 py-4 mb-6 flex items-center justify-between">
         <h1 class="text-2xl font-medium text-center w-full">
             {{ __('messages.course_catalogue') }}
@@ -32,6 +32,7 @@
             {{ session('error') }}
         </div>
     @endif
+    @endadmin
 
     <div class="card-list">
 
@@ -89,6 +90,7 @@
                         {!! nl2br(e($course->description ?? 'Course description not available.')) !!}
                     </div>
 
+                    @admin
                     <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
                         <span class="text-xs font-bold text-gray-400 uppercase">
                             {{ __('messages.admin') }}
@@ -106,6 +108,7 @@
                                 </button>
                             </form>
                         </div>
+                        @endadmin
                     </div>
 
                 </div>
