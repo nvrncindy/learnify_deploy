@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Course;
-use Faker\Factory as Faker; // Fixed capitalization
-use Illuminate\Support\Str; // Added for Slugs
+use Faker\Factory as Faker;
+use Illuminate\Support\Str;
 
 class CourseSeeder extends Seeder
 {
@@ -14,7 +14,8 @@ class CourseSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        // Fixed: Removed the invalid '=' signs from the IDs
+        $images = ['webdev.png', 'ai.png', 'comp.png'];
+
         $embedLinks = [
             'https://www.youtube.com/embed/3-jPo2wzvdw',
             'https://www.youtube.com/embed/KxwzXy12345',
@@ -22,7 +23,7 @@ class CourseSeeder extends Seeder
             'https://www.youtube.com/embed/p_C028gN2kU',
             'https://www.youtube.com/embed/y4J8nEpXtTE',
             'https://www.youtube.com/embed/BpoWFzn8Dmw',
-            'https://www.youtube.com/embed/b_nJ9Y-bcS4', // Removed query params for clean embed
+            'https://www.youtube.com/embed/b_nJ9Y-bcS4',
             'https://www.youtube.com/embed/Bj9-PCAlOHo',
             'https://www.youtube.com/embed/_GI9-J-sE5k',
             'https://www.youtube.com/embed/XDsYPXRCXAs',
@@ -55,12 +56,10 @@ class CourseSeeder extends Seeder
         for ($i=0; $i < 30 ; $i++) {
             $title = $faker->sentence(2);
 
-            // Fixed: Switched to Course::create() to automatically handle timestamps (created_at/updated_at)
-            // If you use DB::table()->insert(), you MUST manually add 'created_at' => now(), or your app will crash again.
             Course::create([
                 'title'       => $title,
-                'slug'        => Str::slug($title), // Fixed: Use Str::slug to make it URL-friendly
-                'image'       => 'img',
+                'slug'        => Str::slug($title),
+                'image'       => $faker->randomElement($images),
                 'description' => $faker->sentence(4),
                 'price'       => $faker->randomNumber(6),
                 'links'       => $embedLinks[array_rand($embedLinks)],
