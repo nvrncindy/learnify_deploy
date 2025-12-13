@@ -22,16 +22,16 @@
     </header>
 
     @if(session('success'))
-            <div class="alert alert-success" style="color: green; padding: 10px; background: #e6fffa; border: 1px solid green; margin-bottom: 10px;">
-                {{ session('success') }}
-            </div>
-        @endif
+        <div class="alert alert-success" style="color: green; padding: 10px; background: #e6fffa; border: 1px solid green; margin-bottom: 10px;">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        @if(session('error'))
-            <div class="alert alert-danger" style="color: red; padding: 10px; background: #ffe6e6; border: 1px solid red; margin-bottom: 10px;">
-                {{ session('error') }}
-            </div>
-        @endif
+    @if(session('error'))
+        <div class="alert alert-danger" style="color: red; padding: 10px; background: #ffe6e6; border: 1px solid red; margin-bottom: 10px;">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="card-list">
 
@@ -61,12 +61,27 @@
                         </div>
 
                         <div class="apply-wrapper">
-                            <form action="{{ route('courses.apply', $course->id) }}" method="POST">
-                                                        @csrf
-                                <button type="submit" class="apply-btn">
-                                    {{ __('messages.apply') }}
-                                </button>
-                            </form>
+                            @auth
+                                @if(Auth::user()->courses->contains($course->id))
+                                    <button type="button" class="apply-btn bg-green-600 hover:bg-green-700 text-white cursor-default" style="background-color: #16a34a !important; cursor: default;" disabled>
+                                        Applied
+                                    </button>
+                                @else
+                                    <form action="{{ route('courses.apply', $course->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="apply-btn">
+                                            {{ __('messages.apply') }}
+                                        </button>
+                                    </form>
+                                @endif
+                            @else
+                                <form action="{{ route('courses.apply', $course->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="apply-btn">
+                                        {{ __('messages.apply') }}
+                                    </button>
+                                </form>
+                            @endauth
                         </div>
                     </div>
 
