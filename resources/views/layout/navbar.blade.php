@@ -13,7 +13,6 @@
 
         <div class="d-flex align-items-center" style="gap: 12px; margin-left: auto;">
 
-            <!-- Language Switcher -->
             <div class="d-flex gap-1">
                 <a href="{{ route('lang.switch', 'en') }}"
                    class="btn btn-sm rounded-pill fw-bold {{ app()->getLocale() == 'en' ? 'btn-primary' : 'btn-outline-secondary' }}"
@@ -27,7 +26,6 @@
                 </a>
             </div>
 
-            <!-- Filter Form -->
             <form action="{{ route('courses.index') }}" method="GET" id="filterForm" class="d-flex align-items-center">
                 @if(request('search'))
                     <input type="hidden" name="search" value="{{ request('search') }}">
@@ -40,13 +38,11 @@
                 </select>
             </form>
 
-            <!-- Search Form -->
             <form action="{{ route('courses.index')}}" method="GET" class="d-flex align-items-center gap-2">
                 <input name="search" type="text" class="form-control rounded-pill px-3" placeholder="Search..." style="width: 250px;">
                 <button class="btn btn-outline-primary rounded-pill px-4 fw-bold">Search</button>
             </form>
 
-            <!-- Auth Buttons -->
             @guest
                 <a href="/login" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
                     Login
