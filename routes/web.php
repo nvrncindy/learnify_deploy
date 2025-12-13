@@ -8,11 +8,18 @@ use App\Http\Controllers\MaterialsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 
-Route::get('/', [CourseController::class, 'index'])->name('home');
+Route::get('/', function () {return redirect()->route('home');});
+Route::view('/home', 'home')->name('home');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::post('/courses/{course}/apply', [CourseController::class, 'apply'])
      ->name('courses.apply');
-Route::get('/landing-page',[LandingPageController::class,'coursesList'])->name('landing.page');
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) { 
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
 
 
 Route::get('/mycourse', [MyCourseController::class, 'MyCourse'])->name('MyCourse');
@@ -40,11 +47,4 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         ->name('admin.courses.store');
 });
 
-Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'id'])) { // 'id' is standard for Indonesian
-        session(['locale' => $locale]);
-    }
-    return redirect()->back();
-})->name('lang.switch');
-
-
+Route::post('/course/{id}/submit', [CourseController::class, 'submit'])->name('course.submit');
