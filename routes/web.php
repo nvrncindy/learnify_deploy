@@ -35,9 +35,7 @@ Route::get('/register', [RegisterController::class, 'create'])->name('register')
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::resource('courses', App\Http\Controllers\CourseController::class);
 
-Route::get('/profile', function () {
-    return view('profile');
-})->middleware('auth');
+Route::get('/profile', [MyCourseController::class, 'show'])->middleware('auth');
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/create', [\App\Http\Controllers\AdminCourseController::class, 'create'])
