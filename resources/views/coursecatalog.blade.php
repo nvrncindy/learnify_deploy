@@ -34,6 +34,24 @@
     @endif
     @endadmin
 
+    <div class="mb-6 flex justify-end">
+        <form action="{{ route('courses.index') }}" method="GET" id="filterForm" class="flex items-center">
+            @if(request('search'))
+                <input type="hidden" name="search" value="{{ request('search') }}">
+            @endif
+
+            <select name="sort" class="form-select rounded-pill px-3 border border-gray-300 shadow-sm" style="width: 220px;" onchange="document.getElementById('filterForm').submit()">
+                <option value="">{{ __('messages.filter') }}</option>
+                <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>
+                    {{ __('messages.price_asc') }}
+                </option>
+                <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>
+                    {{ __('messages.price_desc') }}
+                </option>
+            </select>
+        </form>
+    </div>
+
     <div class="card-list">
 
         @forelse(($courses ?? []) as $course)
@@ -65,7 +83,7 @@
                             @auth
                                 @if(Auth::user()->courses->contains($course->id))
                                     <button type="button" class="apply-btn bg-green-600 hover:bg-green-700 text-white cursor-default" style="background-color: #16a34a !important; cursor: default;" disabled>
-                                        Applied
+                                        {{ __('messages.applied') }}
                                     </button>
                                 @else
                                     <form action="{{ route('courses.apply', $course->id) }}" method="POST">
