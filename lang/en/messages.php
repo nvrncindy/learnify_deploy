@@ -28,4 +28,9 @@ return [
     'already_enrolled'   => 'You are already enrolled in this course.',
     'successfully_applied' => 'You have successfully applied for this course.',
     'course_submitted'   => 'Course submitted successfully!',
+    'enrolled_at'        => 'Enrolled:',
+    'last_updated'       => 'Updated:',
+    'question'           => 'Question',
+    'option'             => 'Option',
+    'submit_btn'         => 'Submit',
 ];
