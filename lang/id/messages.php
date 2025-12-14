@@ -31,6 +31,5 @@ return [
     'enrolled_at'        => 'Terdaftar:',
     'last_updated'       => 'Diperbarui:',
     'question'           => 'Pertanyaan',
-    'option'             => 'Opsi',
     'submit_btn'         => 'Kirim',
 ];
