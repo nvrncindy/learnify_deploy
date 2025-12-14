@@ -71,20 +71,20 @@
                         <ul class="list-unstyled">
                             <li class="mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="q2" id="q2-option1" value="Option 1">
-                                    <label class="form-check-label" for="q2-option1">{{ __('messages.option') }} 1</label>
+                                    <input class="form-check-input" type="radio" name="q2" id="q2-option1" value="A">
+                                    <label class="form-check-label" for="q2-option1">A</label>
                                 </div>
                             </li>
                             <li class="mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="q2" id="q2-option2" value="Option 2">
-                                    <label class="form-check-label" for="q2-option2">{{ __('messages.option') }} 2</label>
+                                    <input class="form-check-input" type="radio" name="q2" id="q2-option2" value="B">
+                                    <label class="form-check-label" for="q2-option2">B</label>
                                 </div>
                             </li>
                             <li class="mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="q2" id="q2-option3" value="Option 3">
-                                    <label class="form-check-label" for="q2-option3">{{ __('messages.option') }} 3</label>
+                                    <input class="form-check-input" type="radio" name="q2" id="q2-option3" value="C">
+                                    <label class="form-check-label" for="q2-option3">C</label>
                                 </div>
                             </li>
                         </ul>
