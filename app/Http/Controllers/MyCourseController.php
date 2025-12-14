@@ -14,4 +14,11 @@ class MyCourseController extends Controller
 
         return view('MyCourse', compact('courses'));
     }
+    public function show()
+    {
+        $user = auth()->user();
+        $courses = $user->courses;
+
+        return view('profile', compact('user', 'courses'));
+    }
 }
