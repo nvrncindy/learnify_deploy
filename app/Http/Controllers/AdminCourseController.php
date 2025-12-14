@@ -42,7 +42,7 @@ class AdminCourseController extends Controller
 
         return redirect()
             ->route('courses.index')
-            ->with('success', 'Course berhasil ditambahkan!');
+            ->with('success', __('messages.course_created'));
     }
 
     // EDIT
@@ -71,7 +71,7 @@ class AdminCourseController extends Controller
 
         return redirect()
             ->route('courses.index')
-            ->with('success', 'Course berhasil diperbarui!');
+            ->with('success', __('messages.course_updated'));
     }
 
     // DELETE
@@ -79,6 +79,7 @@ class AdminCourseController extends Controller
     {
         $course->delete();
 
-        return redirect('/courses')->with('success', 'Course deleted successfully!');
+        return redirect('/courses')
+            ->with('success', __('messages.course_deleted'));
     }
 }
