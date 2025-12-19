@@ -7,7 +7,7 @@
 
         <div class="col-lg-8">
 
-            {{-- titel --}}
+            {{-- title --}}
             <div class="text-center mb-3">
                 <h1 class="fw-bold">{{ $course->title }}</h1>
             </div>

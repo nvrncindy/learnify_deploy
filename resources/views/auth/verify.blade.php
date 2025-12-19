@@ -13,21 +13,21 @@
 
         @if (session('resent'))
             <div class="alert alert-success text-center mt-2">
-                {{ __('Tautan verifikasi baru telah dikirim ke email Anda.') }}
+                {{ __('Already send to your email!') }}
             </div>
         @endif
 
-        <p class="text-center mt-3">Belum menerima email verifikasi?</p>
+        <p class="text-center mt-3">Not received verification email?</p>
 
         <form method="POST" action="{{ route('verification.resend') }}" class="text-center">
             @csrf
             <button type="submit" class="auth-btn mt-2">
-                Kirim Ulang Email Verifikasi
+                Resend Verification Email
             </button>
         </form>
 
         <p class="bottom-text mt-4 mb-0">
-            <a href="{{ route('login') }}">Kembali ke halaman Login</a>
+            <a href="{{ route('login') }}">Back Login Page</a>
         </p>
 
     </div>

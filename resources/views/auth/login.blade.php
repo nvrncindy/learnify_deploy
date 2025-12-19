@@ -35,8 +35,6 @@
                     @endif
                 </div>
             </div>
-
-            {{-- Login Button --}}
             <button type="submit" class="auth-btn mt-3">Sign in</button>
         </form>
 

@@ -7,7 +7,6 @@
         <h3>Create Your Account</h3>
         <p>Join us and start your journey today.</p>
 
-        {{-- ERROR MESSAGE --}}
         @if ($errors->any())
             <div class="alert alert-danger mb-3">
                 <ul class="mb-0">

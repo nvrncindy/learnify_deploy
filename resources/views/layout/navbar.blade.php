@@ -3,8 +3,6 @@
 
         <!-- logo -->
         <a class="navbar-brand fw-bold fs-3 text-primary" href="/">Learnify</a>
-
-        <!-- menu kiri -->
         <div class="d-none d-lg-flex align-items-center gap-4">
             <a href="{{ route('home') }}" class="nav-link fw-semibold">
                 {{ __('messages.home') }}
