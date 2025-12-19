@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
 
-        <!-- Logo -->
+        <!-- logo -->
         <a class="navbar-brand fw-bold fs-3 text-primary" href="/">Learnify</a>
 
-        <!-- Menu kiri -->
+        <!-- menu kiri -->
         <div class="d-none d-lg-flex align-items-center gap-4">
             <a href="{{ route('home') }}" class="nav-link fw-semibold">
                 {{ __('messages.home') }}

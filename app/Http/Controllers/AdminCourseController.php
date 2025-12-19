@@ -13,7 +13,7 @@ class AdminCourseController extends Controller
         $this->middleware(['auth', 'admin']);
     }
 
-    // CREATE
+    // createe
     public function create()
     {
         return view('courses.create');
@@ -24,19 +24,31 @@ class AdminCourseController extends Controller
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
             'description' => 'required|string',
-            'price'       => 'required|numeric|min:0',
-            'rating'      => 'required|numeric|min:0|max:5',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'price'       => 'required|numeric|min:0|max:999999',
+            'rating'      => 'required|nullable|numeric|min:0|max:5',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                        'links' => 'nullable|url|max:255',
+
         ]);
 
         $slug = Str::slug($validated['title']);
         $count = Course::where('slug', 'LIKE', "$slug%")->count();
         $validated['slug'] = $count ? "{$slug}-" . ($count + 1) : $slug;
+        $validated['image'] = null;
 
-        if ($request->hasFile('image')) {
-            $validated['image'] =
-                $request->file('image')->store('courses', 'public');
+         if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            //generate nama in case nama filenya sama
+            $filename = time() . '_' . $image->getClientOriginalName();
+
+            // masukin ke folder public
+            $image->move(public_path(), $filename);
+
+            // submit nama ke db
+            $validated['image'] = $filename;
         }
+
 
         Course::create($validated);
 
@@ -45,26 +57,35 @@ class AdminCourseController extends Controller
             ->with('success', __('messages.course_created'));
     }
 
-    // EDIT
+    // edit
     public function edit(Course $course)
     {
         return view('courses.edit', compact('course'));
     }
 
-    // UPDATE
+    // update
     public function update(Request $request, Course $course)
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
             'description' => 'required|string',
-            'price'       => 'required|numeric|min:0',
+            'price'       => 'required|numeric|min:0|max:999999',
             'rating'      => 'required|numeric|min:0|max:5',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'links' => 'nullable|url|max:255',
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] =
-                $request->file('image')->store('courses', 'public');
+            $image = $request->file('image');
+
+            //generate nama in case nama filenya sama
+            $filename = time() . '_' . $image->getClientOriginalName();
+
+            // masukin ke folder public
+            $image->move(public_path(), $filename);
+
+            // submit nama ke db
+            $validated['image'] = $filename;
         }
 
         $course->update($validated);
@@ -72,9 +93,10 @@ class AdminCourseController extends Controller
         return redirect()
             ->route('courses.index')
             ->with('success', __('messages.course_updated'));
+
     }
 
-    // DELETE
+    // delete
     public function destroy(Course $course)
     {
         $course->delete();
@@ -82,4 +104,5 @@ class AdminCourseController extends Controller
         return redirect('/courses')
             ->with('success', __('messages.course_deleted'));
     }
+    
 }

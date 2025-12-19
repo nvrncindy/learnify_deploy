@@ -3,7 +3,6 @@
 @section('content')
 <div class="container-fluid px-4">
 
-    {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h4 class="fw-bold">Add New Course</h4>
@@ -15,7 +14,6 @@
         </div>
     </div>
 
-    {{-- Success Message --}}
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -29,10 +27,8 @@
         @csrf
 
         <div class="row">
-            {{-- LEFT --}}
             <div class="col-lg-8">
 
-                {{-- Course Details --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Course Details</h6>
@@ -51,6 +47,19 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Slug (Optional - leave blank to auto-generate)</label>
+                            <input type="text"
+                                   name="slug"
+                                   class="form-control @error('slug') is-invalid @enderror"
+                                   value="{{ old('slug') }}"
+                                   placeholder="e.g. advanced-react-patterns">
+
+                            @error('slug')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">Description</label>
                             <textarea name="description"
                                       rows="4"
@@ -64,7 +73,6 @@
                     </div>
                 </div>
 
-                {{-- Curriculum (UI only) --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Curriculum</h6>
@@ -85,7 +93,9 @@
                                 <div>
                                     <label class="form-label">Video Link (URL)</label>
                                     <input type="url"
+                                           name="links"
                                            class="form-control"
+                                           value="{{ old('links') }}"
                                            placeholder="https://youtube.com/watch?v=xxxxx">
                                 </div>
                             </div>
@@ -103,10 +113,8 @@
 
             </div>
 
-            {{-- RIGHT --}}
             <div class="col-lg-4">
 
-                {{-- Publishing (UI only) --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Publishing</h6>
@@ -115,7 +123,8 @@
                             <input class="form-check-input"
                                    type="checkbox"
                                    name="is_published"
-                                   id="published">
+                                   id="published"
+                                   {{ old('is_published') ? 'checked' : '' }}>
                             <label class="form-check-label" for="published">
                                 Published
                             </label>
@@ -125,8 +134,7 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- Course Media --}}
+                
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Course Media</h6>
@@ -134,24 +142,34 @@
                         <label class="form-label">Thumbnail</label>
                         <div class="border rounded text-center py-5">
                             <input type="file"
-                                   name="image"
-                                   class="form-control border-0 @error('image') is-invalid @enderror">
+                                name="image"
+                                class="form-control border-0 @error('image') is-invalid @enderror">
 
                             @error('image')
                                 <div class="text-danger small mt-2">{{ $message }}</div>
                             @enderror
-
-                            <div class="text-muted mt-2">
-                                Upload Thumbnail
-                            </div>
                         </div>
                     </div>
-                </div>
+            </div>
 
-                {{-- Pricing --}}
                 <div class="card">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Pricing</h6>
+
+                        <div class="mb-3">
+                            <label class="form-label">Rating (0-5)</label>
+                            <input type="number"
+                                   step="0.1"
+                                   min="0"
+                                   max="5"
+                                   name="rating"
+                                   class="form-control @error('rating') is-invalid @enderror"
+                                   value="{{ old('rating') }}">
+
+                            @error('rating')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label">Price</label>

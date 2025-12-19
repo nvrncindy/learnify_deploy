@@ -14,7 +14,7 @@
             {{ __('messages.course_catalogue') }}
         </h1>
 
-        <a href="{{ route('courses.create') }}" class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 text-sm font-bold whitespace-nowrap ml-4">
+        <a href="{{ route('admin.courses.create') }}" class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 text-sm font-bold whitespace-nowrap ml-4">
             + {{ __('messages.new_course') }}
         </a>
 
@@ -114,11 +114,11 @@
                             {{ __('messages.admin') }}
                         </span>
                         <div class="flex gap-2">
-                            <a href="{{ route('courses.edit', $course->id) }}" class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded hover:bg-yellow-200 transition">
+                            <a href="{{ route('admin.courses.edit', $course->id) }}" class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded hover:bg-yellow-200 transition">
                                 {{ __('messages.edit') }}
                             </a>
 
-                            <form action="{{ route('courses.destroy', $course->id) }}" method="POST" onsubmit="return confirm('{{ __('messages.confirm_delete') }}');" style="display:inline;">
+                            <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" onsubmit="return confirm('{{ __('messages.confirm_delete') }}');" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 transition">

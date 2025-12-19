@@ -3,7 +3,6 @@
 @section('content')
 <div class="container-fluid px-4">
 
-    {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h4 class="fw-bold">Edit Course</h4>
@@ -21,7 +20,6 @@
         </div>
     </div>
 
-    {{-- Success Message --}}
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -29,17 +27,15 @@
     @endif
 
     <form id="courseForm"
-          action="{{ route('courses.update', $course->id) }}"
+          action="{{ route('admin.courses.update', $course->id) }}"
           method="POST"
           enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="row">
-            {{-- LEFT --}}
             <div class="col-lg-8">
 
-                {{-- Course Details --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Course Details</h6>
@@ -81,7 +77,6 @@
                     </div>
                 </div>
 
-                {{-- Curriculum (UI only) --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Curriculum</h6>
@@ -102,8 +97,10 @@
                                 <div>
                                     <label class="form-label">Video Link (URL)</label>
                                     <input type="url"
+                                           name="links"
                                            class="form-control"
-                                           placeholder="https://youtube.com/watch?v=xxxxx">
+                                           value="{{ old('links', $course->links) }}"
+                                           placeholder="https://youtube.com/embed/xxxxx">
                                 </div>
                             </div>
 
@@ -120,10 +117,8 @@
 
             </div>
 
-            {{-- RIGHT --}}
             <div class="col-lg-4">
 
-                {{-- Publishing --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Publishing</h6>
@@ -146,36 +141,41 @@
                     </div>
                 </div>
 
-                {{-- Course Media --}}
                 <div class="card mb-4">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Course Media</h6>
 
                         <label class="form-label">Thumbnail</label>
-                        <div class="border rounded text-center py-4">
+                        <div class="border rounded text-center py-5">
                             <input type="file"
-                                   name="image"
-                                   class="form-control border-0 @error('image') is-invalid @enderror">
+                                name="image"
+                                class="form-control border-0 @error('image') is-invalid @enderror">
 
                             @error('image')
                                 <div class="text-danger small mt-2">{{ $message }}</div>
                             @enderror
-
-                            @if($course->image)
-                                <div class="mt-3">
-                                    <img src="{{ asset('storage/' . $course->image) }}"
-                                         class="img-fluid rounded"
-                                         style="max-height: 120px">
-                                </div>
-                            @endif
                         </div>
                     </div>
                 </div>
 
-                {{-- Pricing --}}
                 <div class="card">
                     <div class="card-body">
                         <h6 class="fw-bold mb-3">Pricing</h6>
+
+                        <div class="mb-3">
+                            <label class="form-label">Rating (0-5)</label>
+                            <input type="number"
+                                   step="0.1"
+                                   min="0"
+                                   max="5"
+                                   name="rating"
+                                   class="form-control @error('rating') is-invalid @enderror"
+                                   value="{{ old('rating', $course->rating) }}">
+
+                            @error('rating')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label">Price</label>
@@ -192,22 +192,26 @@
                     </div>
                 </div>
 
-                {{-- Delete --}}
-                <form method="POST"
-                      action="{{ route('courses.destroy', $course->id) }}"
-                      class="mt-3">
-                    @csrf
-                    @method('DELETE')
-
+                <div class="mt-3">
                     <button type="submit"
+                            form="deleteCourseForm"
                             onclick="return confirm('Are you sure?')"
                             class="btn btn-outline-danger w-100">
                         Delete Course
                     </button>
-                </form>
+                </div>
 
             </div>
         </div>
     </form>
+
+    <form id="deleteCourseForm"
+          action="{{ route('admin.courses.destroy', $course->id) }}"
+          method="POST"
+          style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
 </div>
 @endsection
