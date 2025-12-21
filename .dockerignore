@@ -1,0 +1,32 @@
+# Version control
+.git
+.gitignore
+
+# Node & frontend
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# PHP / Laravel
+vendor
+storage
+bootstrap/cache
+
+# Environment files
+.env
+.env.*
+phpunit.xml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Vercel / build artifacts
+.vercel
+.next
+dist
+build
